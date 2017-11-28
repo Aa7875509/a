@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<el-checkbox-group 
+				v-model="checkedCities1"
+				:min="0"
+				:max="1"
+				>
+				<el-checkbox  v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+			</el-checkbox-group>
+		</div>
+	</body>
+	<!-- 先引入 Vue -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- 引入组件库 -->
+
+	<script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>
+
+	<script>
+		 const cityOptions = ['上海', '北京', '广州', '深圳'];
+		new Vue({
+			el: '#app',
+			data: function() {
+				
+				return {
+					checkedCities1:[],
+					cities: cityOptions
+				}
+
+			},
+			methods: {
+                
+			}
+		})
+	</script>
+
+</html>

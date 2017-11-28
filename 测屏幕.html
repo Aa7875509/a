@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 引入样式 -->
+		<title>测试屏幕颜色</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			.red{
+				background: red;
+			}
+			.silver{
+				background: silver;
+			}
+			.khaki{
+				background: khaki;
+			}
+			.greenyellow{
+				background: greenyellow;
+			}
+			.gold{
+				background: gold;
+			}
+			.brown{
+				background: brown;
+			}
+			.pink{
+				background: pink;
+			}
+			.gray{
+				background: gray;
+			}
+			.yellow{
+				background: yellow;
+			}
+			.black{
+				background: black;
+			}
+			.white{
+				background: white;
+			}
+			.green{
+				background: green;
+			}
+			.psd{
+				text-align: center;
+			}
+			.btn{
+				width: 610px;
+				height: 50px;
+				line-height: 50px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -25px;
+				margin-left: -305px;
+			}
+			.isp{
+				font-size:12px;
+				transform:scale(0.7);
+				opacity:0.5;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div v-bind:style="gao" class="psd" v-bind:class="mys" >
+				<h5>打开后按F11全屏，再按F11退出</h5>
+				<div class="btn">
+					<input type="button" class="isp"  value="红色" @click="mys='red'" />
+					<input type="button" class="isp" value="绿色" @click="mys='green'" />
+					<input type="button" class="isp" value="白色" @click="mys='white'" />
+					<input type="button" class="isp" value="黑色" @click="mys='black'" />
+					<input type="button" class="isp" value="黄色" @click="mys='yellow'" />
+					<input type="button" class="isp" value="灰色" @click="mys='gray'" />
+					<input type="button" class="isp" value="粉红色" @click="mys='pink'" />
+					<input type="button" class="isp" value="褐色茶色" @click="mys='brown'" />
+					<input type="button" class="isp" value="金色" @click="mys='gold'" />
+					<input type="button" class="isp" value="黄绿色" @click="mys='greenyellow'" />
+					<input type="button" class="isp" value="卡其色" @click="mys='khaki'" />
+					<input type="button" class="isp" value="银色" @click="mys='silver'" />
+				</div>
+				
+			</div>
+		</div>
+	</body>
+	<!-- 先引入 Vue -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script>
+		
+		new Vue({
+			el: '#app',
+			data: function() {
+				var yu=window.innerHeight;
+				return {
+					ass: 1,
+					mys:'red',
+					gao:'height:'+yu+'px;width: 100%;',
+				}
+			},
+			mounted(){
+				var vm =this;
+				window.addEventListener('resize', function() {
+				vm.gao='height:'+window.innerHeight+'px;width: 100%;'
+			});
+			},
+			methods: {
+               
+			}
+		})
+	</script>
+
+</html>
