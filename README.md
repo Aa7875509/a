@@ -19,3 +19,20 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+##AJAX代码
+
+```
+const v = this;
+v.$ajax({
+    data:{
+        s: "Hello.World",       // 待请求的接口服务名称
+        name: "dogstar",        // 更多接口参数
+        callback: "onCallback"  ,// 客户端的JS回调函数
+        },
+    done:function(r){
+        console.log(r)
+    },
+})
+```
