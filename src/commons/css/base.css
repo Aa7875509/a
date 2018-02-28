@@ -4,3 +4,9 @@
 * @Last Modified by:   YOS
 * @Last Modified time: 2017-11-22 18:08:01
 */
+.el-dialog__header{
+    background: rgb(221, 221, 221);
+}
+.dialog-footer{
+    margin-left: 300px;
+}

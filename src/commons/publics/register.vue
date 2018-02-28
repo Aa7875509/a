@@ -12,6 +12,10 @@
                 <el-form-item label="确认密码" prop="password2">
                     <el-input type="password" v-model="ruleForm.password2"></el-input>
                 </el-form-item>
+                <el-form-item label="验证码" prop="passimg">
+                    <div class="passinput"><el-input v-model="ruleForm.passimg"></el-input></div>
+                    <div class="passimg" @click="myurlimg()" :style="'background:url(data:image/png;base64,'+urlimg+') no-repeat;background-size: cover;'"></div>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
                     <el-button @click="resetForm('ruleForm')">关闭</el-button>
@@ -25,10 +29,13 @@
 export default {
     data () {
         return {
+            urlimg:'',
+            urlimgid:'',
             ruleForm: {
                 name: '',
                 password:'',
                 password2:'',
+                passimg:''
             },
             rules: {
                 name: [
@@ -42,6 +49,10 @@ export default {
                 password2: [
                     { required: true, message: '请确认密码', trigger: 'change' },
                      { min: 6, max: 20, message: '请输入6位数以上密码', trigger: 'blur' }
+                ],
+                passimg: [
+                    { required: true, message: '请输入验证码', trigger: 'change' },
+                     { min: 4, max:4 , message: '请输入4位数验证码', trigger: 'blur' }
                 ],
             }
         }
@@ -66,29 +77,22 @@ export default {
             }
             v.$refs[formName].validate((valid) => {
                 if (valid) {
-                    
-                    var p =md5(v.ruleForm.password)
                     v.$ajax({
                         data:{
-                            s: "App.User.Register",       // 待请求的接口服务名称
-                            username: v.ruleForm.name,
-                            password: p,        // 更多接口参数
+                            s: "App.Captcha.Verify",       // 待请求的接口服务名称
+                            captcha_id: v.urlimgid,
+                            captcha_code: v.ruleForm.passimg,        // 更多接口参数
                             callback: "onCallback"  ,// 客户端的JS回调函数
                             },
                         done:function(r){
                             if(r.ret=='200'){
-                                 if(r.data.err_code=='0'){
-                                    v.$alert('<strong>注册成功！</strong>', '提示', {
-                                        dangerouslyUseHTMLString: true,
-                                        type: 'success',
-                                    }).then(() => {
-                                    v.$router.push('/')
-                                    })
+                                if(r.data.err_code=='0'){
+                                    v.ajaxmy();
                                 }else{
                                     v.open1(r.data.err_msg);
                                 }
                             }else{
-                                 v.open1(r.msg);
+                                v.open1(r.msg);
                             }
                         }
                     })
@@ -97,13 +101,66 @@ export default {
                 }
             });
         },
+        //确认请求
+        ajaxmy(){
+            const v = this;
+            var p =md5(v.ruleForm.password)
+            v.$ajax({
+                data:{
+                    s: "App.User.Register",       // 待请求的接口服务名称
+                    username: v.ruleForm.name,
+                    password: p,        // 更多接口参数
+                    callback: "onCallback"  ,// 客户端的JS回调函数
+                    },
+                done:function(r){
+                    if(r.ret=='200'){
+                            if(r.data.err_code=='0'){
+                            v.$alert('<strong>注册成功！</strong>', '提示', {
+                                dangerouslyUseHTMLString: true,
+                                type: 'success',
+                            }).then(() => {
+                            v.$router.push('/')
+                            })
+                        }else{
+                            v.open1(r.data.err_msg);
+                        }
+                    }else{
+                            v.open1(r.msg);
+                    }
+                }
+            })
+        },
         //返回按钮
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.$router.push('/')
+        },
+        //获取验证图片
+        myurlimg(){
+            const v = this;
+            v.$ajax({
+                data:{
+                    s: "App.Captcha.Create",       // 待请求的接口服务名称
+                    return_format: 'data',
+                    callback: "onCallback"  ,// 客户端的JS回调函数
+                    },
+                done:function(r){
+                    if(r.ret=='200'){
+                            if(r.data.err_code=='0'){
+                                v.urlimgid=r.data.captcha_id	//字符串	验证码唯一ID，用于校验时核对（return_format=data时返回此字段）
+                                v.urlimg= r.data.captcha_img
+                        }else{
+                            v.open1(r.data.err_msg);
+                        }
+                    }else{
+                            v.open1(r.msg);
+                    }
+                }
+            })
         }
     },
     mounted(){
+        this.myurlimg();
         window.onresize = () => {
                 $('.register').css({
                 width: window.innerWidth,
@@ -133,7 +190,18 @@ export default {
        
      }
      .register{
-         background:url('../../../static/imgs/_20180131184741.jpg');
-         background-size: 100% 100%;
+        background:url('../../../static/imgs/regd.jpg');
+        background-size: 100% 100%;
      }
+     .passinput{
+        display: inline-block; 
+        width: 180px;
+     }
+     .passimg{
+       display: inline-block;
+        position: absolute;
+        width: 140px;
+        height: 40px;
+     }
+     
 </style>

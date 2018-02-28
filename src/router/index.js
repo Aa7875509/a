@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import index from '@/components/index'
 import loading from '@/commons/publics/loading'
 import register from '@/commons/publics/register'
 
@@ -15,9 +15,8 @@ export default new Router({
       component: loading
     },
     {
-      path: '/HelloWorld',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/index',
+      component: index
     },
     {
       path: '/register',

@@ -45,7 +45,7 @@ Vue.prototype.$ajax = function (params) {
   */
   
   function onCallback(r){
-    console.log('e',r);
+   
   }
 };
 
