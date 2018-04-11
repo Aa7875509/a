@@ -36,3 +36,11 @@ v.$ajax({
     },
 })
 ```
+##兼容谷歌浏览器
+
+```
+打开终端，输入命令：
+
+open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_sess_1" --disable-web-security
+
+```
