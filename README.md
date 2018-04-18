@@ -43,6 +43,11 @@ v.$ajax({
 
 open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_sess_1" --disable-web-security
 
-tar压缩格式打包
+
+```
+
+##tar压缩格式打包
+```
 tar -zcvf dist.tar.gz dist/
+
 ```
