@@ -51,3 +51,11 @@ open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args
 tar -zcvf dist.tar.gz dist/
 
 ```
+#py服务器
+```
+python -m SimpleHTTPServer 7777
+```
+#py打开host
+```
+sudo vi /etc/hosts sudo
+```
